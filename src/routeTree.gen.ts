@@ -10,33 +10,68 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as EmploymentApplicationRouteImport } from './routes/employment-application'
+import { Route as OnboardingPacketRouteImport } from './routes/onboarding-packet'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmploymentApplicationRoute = EmploymentApplicationRouteImport.update({
+  id: '/employment-application',
+  path: '/employment-application',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingPacketRoute = OnboardingPacketRouteImport.update({
+  id: '/onboarding-packet',
+  path: '/onboarding-packet',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/employment-application': typeof EmploymentApplicationRoute
+  '/onboarding-packet': typeof OnboardingPacketRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/employment-application': typeof EmploymentApplicationRoute
+  '/onboarding-packet': typeof OnboardingPacketRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/employment-application': typeof EmploymentApplicationRoute
+  '/onboarding-packet': typeof OnboardingPacketRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/admin' | '/employment-application' | '/onboarding-packet'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/admin' | '/employment-application' | '/onboarding-packet'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/employment-application'
+    | '/onboarding-packet'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  EmploymentApplicationRoute: typeof EmploymentApplicationRoute
+  OnboardingPacketRoute: typeof OnboardingPacketRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +83,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employment-application': {
+      id: '/employment-application'
+      path: '/employment-application'
+      fullPath: '/employment-application'
+      preLoaderRoute: typeof EmploymentApplicationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding-packet': {
+      id: '/onboarding-packet'
+      path: '/onboarding-packet'
+      fullPath: '/onboarding-packet'
+      preLoaderRoute: typeof OnboardingPacketRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  EmploymentApplicationRoute: EmploymentApplicationRoute,
+  OnboardingPacketRoute: OnboardingPacketRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
