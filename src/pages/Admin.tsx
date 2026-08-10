@@ -36,7 +36,7 @@ interface Application {
   date_of_birth?: string;
   desired_position?: string;
   created_at: string;
-  full_form_data: Record<string, unknown>;
+  full_form_data: Record<string, any>;
   availability?: AvailabilityData;
 }
 
@@ -59,7 +59,7 @@ interface EmploymentApplication {
   level3_license?: boolean;
   level4_license?: boolean;
   created_at: string;
-  full_form_data: Record<string, unknown>;
+  full_form_data: Record<string, any>;
 }
 
 interface RetellCall {
@@ -76,7 +76,7 @@ interface RetellCall {
   transcript?: string;
   summary?: string;
   sentiment?: string;
-  custom_data?: Record<string, unknown>;
+  custom_data?: Record<string, any>;
   recording_url?: string;
   recording_multi_channel_url?: string;
   public_log_url?: string;
@@ -84,15 +84,15 @@ interface RetellCall {
   agent_name?: string;
   agent_version?: number;
   disconnection_reason?: string;
-  transcript_object?: Array<Record<string, unknown>>;
-  call_analysis?: Record<string, unknown>;
-  call_cost?: Record<string, unknown>;
-  latency?: Record<string, unknown>;
-  retell_llm_dynamic_variables?: Record<string, unknown>;
-  collected_dynamic_variables?: Record<string, unknown>;
+  transcript_object?: Array<Record<string, any>>;
+  call_analysis?: Record<string, any>;
+  call_cost?: Record<string, any>;
+  latency?: Record<string, any>;
+  retell_llm_dynamic_variables?: Record<string, any>;
+  collected_dynamic_variables?: Record<string, any>;
   transfer_destination?: string;
   event_type?: string;
-  metadata?: Record<string, unknown>;
+  metadata?: Record<string, any>;
   created_at: string;
 }
 
@@ -743,20 +743,20 @@ export default function Admin() {
                                 {call.call_type && (
                                   <Badge variant="outline">{call.call_type.replace(/_/g, " ")}</Badge>
                                 )}
-                                {(call.sentiment || (analysis as Record<string, unknown>).user_sentiment) && (
+                                {(call.sentiment || (analysis as Record<string, any>).user_sentiment) && (
                                   <Badge variant={
-                                    (call.sentiment || String((analysis as Record<string, unknown>).user_sentiment)).toLowerCase() === "positive" ? "default" :
-                                    (call.sentiment || String((analysis as Record<string, unknown>).user_sentiment)).toLowerCase() === "negative" ? "destructive" : "secondary"
+                                    (call.sentiment || String((analysis as Record<string, any>).user_sentiment)).toLowerCase() === "positive" ? "default" :
+                                    (call.sentiment || String((analysis as Record<string, any>).user_sentiment)).toLowerCase() === "negative" ? "destructive" : "secondary"
                                   }>
-                                    {call.sentiment || String((analysis as Record<string, unknown>).user_sentiment)}
+                                    {call.sentiment || String((analysis as Record<string, any>).user_sentiment)}
                                   </Badge>
                                 )}
-                                {(analysis as Record<string, unknown>).call_successful !== undefined && (
-                                  <Badge variant={(analysis as Record<string, unknown>).call_successful ? "default" : "destructive"}>
-                                    {(analysis as Record<string, unknown>).call_successful ? "Successful" : "Unsuccessful"}
+                                {(analysis as Record<string, any>).call_successful !== undefined && (
+                                  <Badge variant={(analysis as Record<string, any>).call_successful ? "default" : "destructive"}>
+                                    {(analysis as Record<string, any>).call_successful ? "Successful" : "Unsuccessful"}
                                   </Badge>
                                 )}
-                                {(analysis as Record<string, unknown>).in_voicemail && (
+                                {(analysis as Record<string, any>).in_voicemail && (
                                   <Badge variant="outline">Voicemail</Badge>
                                 )}
                                 {matchedApp && (
@@ -858,12 +858,12 @@ export default function Admin() {
                                   {format(new Date(call.start_time || call.created_at), "MMM d, yyyy 'at' h:mm a")}
                                 </span>
                               </div>
-                              {(call.summary || (analysis as Record<string, unknown>).call_summary) && (
+                              {(call.summary || (analysis as Record<string, any>).call_summary) && (
                                 <div className="mt-2 text-sm bg-muted/30 p-3 rounded-lg">
                                   <span className="font-medium flex items-center gap-1 mb-1">
                                     <MessageSquare className="w-3 h-3" /> Summary
                                   </span>
-                                  <p className="text-muted-foreground">{call.summary || String((analysis as Record<string, unknown>).call_summary)}</p>
+                                  <p className="text-muted-foreground">{call.summary || String((analysis as Record<string, any>).call_summary)}</p>
                                 </div>
                               )}
                             </div>
@@ -982,35 +982,35 @@ export default function Admin() {
                                         <div>
                                           <h3 className="font-semibold mb-3">Call Analysis</h3>
                                           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
-                                            {(analysis as Record<string, unknown>).call_summary && (
+                                            {(analysis as Record<string, any>).call_summary && (
                                               <div className="col-span-full">
                                                 <span className="font-medium text-muted-foreground">Summary</span>
-                                                <p className="mt-1 bg-muted/30 p-3 rounded-lg">{String((analysis as Record<string, unknown>).call_summary)}</p>
+                                                <p className="mt-1 bg-muted/30 p-3 rounded-lg">{String((analysis as Record<string, any>).call_summary)}</p>
                                               </div>
                                             )}
-                                            {(analysis as Record<string, unknown>).user_sentiment && (
+                                            {(analysis as Record<string, any>).user_sentiment && (
                                               <div>
                                                 <span className="font-medium text-muted-foreground">Sentiment</span>
-                                                <p className="mt-1">{String((analysis as Record<string, unknown>).user_sentiment)}</p>
+                                                <p className="mt-1">{String((analysis as Record<string, any>).user_sentiment)}</p>
                                               </div>
                                             )}
-                                            {(analysis as Record<string, unknown>).call_successful !== undefined && (
+                                            {(analysis as Record<string, any>).call_successful !== undefined && (
                                               <div>
                                                 <span className="font-medium text-muted-foreground">Successful</span>
-                                                <p className="mt-1">{(analysis as Record<string, unknown>).call_successful ? "Yes" : "No"}</p>
+                                                <p className="mt-1">{(analysis as Record<string, any>).call_successful ? "Yes" : "No"}</p>
                                               </div>
                                             )}
-                                            {(analysis as Record<string, unknown>).in_voicemail !== undefined && (
+                                            {(analysis as Record<string, any>).in_voicemail !== undefined && (
                                               <div>
                                                 <span className="font-medium text-muted-foreground">Voicemail</span>
-                                                <p className="mt-1">{(analysis as Record<string, unknown>).in_voicemail ? "Yes" : "No"}</p>
+                                                <p className="mt-1">{(analysis as Record<string, any>).in_voicemail ? "Yes" : "No"}</p>
                                               </div>
                                             )}
-                                            {(analysis as Record<string, unknown>).custom_analysis_data && Object.keys((analysis as Record<string, unknown>).custom_analysis_data as object).length > 0 && (
+                                            {(analysis as Record<string, any>).custom_analysis_data && Object.keys((analysis as Record<string, any>).custom_analysis_data as object).length > 0 && (
                                               <div className="col-span-full">
                                                 <span className="font-medium text-muted-foreground">Custom Analysis</span>
                                                 <pre className="mt-1 text-xs bg-muted p-3 rounded-lg overflow-x-auto">
-                                                  {JSON.stringify((analysis as Record<string, unknown>).custom_analysis_data, null, 2)}
+                                                  {JSON.stringify((analysis as Record<string, any>).custom_analysis_data, null, 2)}
                                                 </pre>
                                               </div>
                                             )}
@@ -1019,7 +1019,7 @@ export default function Admin() {
                                       )}
 
                                       {/* Summary (fallback if not in analysis) */}
-                                      {call.summary && !((analysis as Record<string, unknown>).call_summary) && (
+                                      {call.summary && !((analysis as Record<string, any>).call_summary) && (
                                         <div>
                                           <h3 className="font-semibold mb-2">Summary</h3>
                                           <p className="text-sm bg-muted/30 p-3 rounded-lg">{call.summary}</p>
@@ -1062,7 +1062,7 @@ export default function Admin() {
                                           <h3 className="font-semibold mb-3">Latency (ms)</h3>
                                           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
                                             {Object.entries(call.latency).map(([key, val]) => {
-                                              const latencyVal = val as Record<string, unknown> | null;
+                                              const latencyVal = val as Record<string, any> | null;
                                               if (!latencyVal || typeof latencyVal !== "object") return null;
                                               return (
                                                 <div key={key} className="bg-muted/30 p-2 rounded">
