@@ -4,17 +4,17 @@ import Index from "@/pages/Index";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Kairos Security Portal | Officer Forms" },
+      { title: "Employment Application | Kairos Security" },
       {
         name: "description",
         content:
-          "Complete Kairos Security employment applications and onboarding paperwork online.",
+          "Apply for a position at Kairos Security. Complete your employment application online.",
       },
-      { property: "og:title", content: "Kairos Security Portal" },
+      { property: "og:title", content: "Kairos Security Careers" },
       {
         property: "og:description",
         content:
-          "Complete Kairos Security employment applications and onboarding paperwork online.",
+          "Apply for a position at Kairos Security. Complete your employment application online.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://cozy-copy-maker.lovable.app/" },
